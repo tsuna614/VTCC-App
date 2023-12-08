@@ -7,13 +7,11 @@ import sys
 def TinhHOG(pathfilename):
   img = cv.imread(pathfilename,0)
   img = cv.resize(img, (64, 128))
-  print('3')
   (hog, hog_image) = feature.hog(
       img, orientations=9,
       pixels_per_cell=(8, 8), cells_per_block=(2, 2),
       block_norm='L2-Hys', visualize=True, transform_sqrt=True
       )
-  print('4')
   # return hog / np.linalg.norm(hog)
   return hog
 load_model = pickle.load(open('E:\\MayHocvaCongCu_SE335\\Project\\VTCC-App\\backend\\svm_hog.sav', 'rb'))
