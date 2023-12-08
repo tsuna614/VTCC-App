@@ -3,6 +3,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:dio/dio.dart';
+
+final dio = Dio();
 
 class ImageSelect extends StatefulWidget {
   @override
@@ -69,6 +72,21 @@ class _ImageSelectState extends State<ImageSelect> {
         });
   }
 
+  Future<String> uploadImage(File file) async {
+    // print('1111111111111111111111111111111111111111');
+    // String fileName = file.path.split('/').last;
+    // FormData formData = FormData.fromMap({
+    //   "image": await MultipartFile.fromFile(file.path, filename: fileName),
+    // });
+    // print(formData);
+    // final response = await dio
+    //     .post("http://localhost:3000/v1/program/getImageName", data: formData);
+    final response = await dio.get("http://localhost:3000/v1/item/getAllItems");
+    // return response.data['id'];
+    print(response);
+    return 'abc';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +125,12 @@ class _ImageSelectState extends State<ImageSelect> {
                 : Text(
                     "No Image",
                     style: TextStyle(fontSize: 20),
-                  )
+                  ),
+            ElevatedButton(
+                onPressed: () {
+                  uploadImage(File(image!.path));
+                },
+                child: Text('Upload Image'))
           ],
         ),
       ),
