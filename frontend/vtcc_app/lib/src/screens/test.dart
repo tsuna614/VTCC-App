@@ -27,50 +27,60 @@ class _TestPageState extends State<TestPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Form(
-        key: _myForm,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _textField1,
-              decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.1),
-                prefixIcon: const Icon(
-                  Icons.abc_sharp,
+    return SafeArea(
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Form(
+                key: _myForm,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextFormField(
+                      controller: _textField1,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.1),
+                        prefixIcon: const Icon(
+                          Icons.abc_sharp,
+                        ),
+                        hintText: 'Enter your item',
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      textCapitalization: TextCapitalization.none,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your first name';
+                        }
+                        return null;
+                      },
+                      // onSaved: (newValue) => _enteredEmail = newValue!,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     handlePushData();
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     minimumSize: const Size.fromHeight(40),
+                    //   ),
+                    //   child: const Text('Push data'),
+                    // )
+                  ],
                 ),
-                hintText: 'Enter your item',
               ),
-              keyboardType: TextInputType.emailAddress,
-              autocorrect: false,
-              textCapitalization: TextCapitalization.none,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Please enter your first name';
-                }
-                return null;
-              },
-              // onSaved: (newValue) => _enteredEmail = newValue!,
             ),
-            const SizedBox(
-              height: 50,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                handlePushData();
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(40),
-              ),
-              child: const Text('Push data'),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

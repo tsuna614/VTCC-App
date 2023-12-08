@@ -7,15 +7,17 @@ const homeController = require("../controllers/home.controller");
 
 router.get("/", (req, res) => {
   const { spawn } = require("child_process");
-  const pyProg = spawn("python", [
+  const pyProg = spawn("python3", [
     "backend.py",
-    "E:\\MayHocvaCongCu_SE335\\Project\\data\\Banh_1.jpg",
+    "data/BanhCay/Banh_cay_1.jpg",
   ]);
 
-  console.log('running');
+  console.log("running");
+
+  // const pyProg = spawn("python3", ["test.py", 2, 3]);
 
   pyProg.stdout.on("data", function (data) {
-    console.log(data.toString());
+    console.log("Data received from python script: ", data.toString());
     // res.write(data);
     // res.end("end");
   });
