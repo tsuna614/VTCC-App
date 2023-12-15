@@ -17,22 +17,22 @@ const upload = multer({ storage: storage });
 
 // post image and get data
 router.post("/getImageName", upload.single("image"), async (req, res) => {
-  console.log(req.file);
+  // console.log(req.file);
   const { spawn } = require("child_process");
   //   const pyProg = spawn("python", [
   //     "backend.py",
   //     "E:\\MayHocvaCongCu_SE335\\Project\\data\\Banh_1.jpg",
   //   ]);
-  // const pyProg = await spawn("python", ["backend.py", req.file.path]);
+  const pyProg = await spawn("python", ["backend.py", req.file.path]);
 
-  // console.log("running");
+  console.log("running");
 
-  // pyProg.stdout.on("data", function (data) {
-  //   console.log(data.toString());
-  //   res.status(200).json({ message: `Name of cake: ${data.toString()}` });
-  //   // res.write(data);
-  //   // res.end("end");
-  // });
+  pyProg.stdout.on("data", function (data) {
+    console.log(data.toString());
+    res.status(200).json({ message: `Name of cake: ${data.toString()}` });
+    // res.write(data);
+    // res.end("end");
+  });
 });
 
 module.exports = router;
