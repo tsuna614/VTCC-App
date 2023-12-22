@@ -72,19 +72,58 @@ class _ImageSelectState extends State<ImageSelect> {
         });
   }
 
-  Future<String> uploadImage(File file) async {
-    // print('1111111111111111111111111111111111111111');
-    // String fileName = file.path.split('/').last;
-    // FormData formData = FormData.fromMap({
-    //   "image": await MultipartFile.fromFile(file.path, filename: fileName),
-    // });
-    // print(formData);
-    // final response = await dio
-    //     .post("http://localhost:3000/v1/program/getImageName", data: formData);
-    final response = await dio.get("http://localhost:3000/v1/item/getAllItems");
+  void uploadImage(File file) async {
+    String fileName = file.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "image": await MultipartFile.fromFile(file.path, filename: fileName),
+    });
+    final response = await dio.post(
+        "http://192.168.2.67:3000/v1/program/getImageName",
+        data: formData);
+    // final response =
+    //     await dio.get("http://192.168.2.67:3000/v1/item/getAllItems");
     // return response.data['id'];
-    print(response);
-    return 'abc';
+    // print(response.data["message"].toString());
+    String receivedData = response.data["message"].toString().trim();
+
+    // if (receivedData.compareTo('[\'BanhTaiHeo\']') == 0) {
+    //   print('Success');
+    // }
+
+    switch (receivedData) {
+      case '[\'BanhChung\']':
+        receivedData = 'Banh Chung';
+        break;
+      case '[\'BanhGiayGio\']':
+        receivedData = 'Banh Giay Gio';
+        break;
+      case '[\'BanhTaiHeo\']':
+        receivedData = 'Banh Tai Heo';
+        break;
+      case '[\'BanhPia\']':
+        receivedData = 'Banh Pia';
+        break;
+      case '[\'BanhCay\']':
+        receivedData = 'Banh Cay';
+        break;
+      default:
+        print('default');
+        break;
+    }
+    if (context.mounted) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Name of cake: ' + receivedData),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
