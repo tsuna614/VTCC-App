@@ -72,8 +72,8 @@ class _MainScreenState extends State<MainScreen> {
                   title: Text('Home'),
                   selectedColor: Colors.deepPurple),
               SalomonBottomBarItem(
-                icon: Icon(FontAwesomeIcons.camera),
-                title: Text('Camera'),
+                icon: Icon(FontAwesomeIcons.image),
+                title: Text('Confirm'),
                 selectedColor: Colors.deepPurple,
               ),
             ],

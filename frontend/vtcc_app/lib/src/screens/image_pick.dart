@@ -117,7 +117,9 @@ class _ImageSelectState extends State<ImageSelect> {
         print('default');
         break;
     }
-    _isLoading = false;
+    setState(() {
+      _isLoading = false;
+    });
     if (context.mounted) {
       showDialog<String>(
         context: context,
@@ -233,7 +235,7 @@ class _ImageSelectState extends State<ImageSelect> {
                 //   child: Text('Upload Image'),
                 // ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   child: _isLoading == false
                       ? CustomButton(
                           buttonText: 'Classify',
